@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김사랑 포트폴리오</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    :root {
+      --bg: #fefcf9;
+      --surface: #f5f0e8;
+      --card: #ffffff;
+      --border: #e8e2d8;
+      --accent: #ff6b47;
+      --accent2: #5b5ef4;
+      --accent3: #0db88c;
+      --text: #1a1824;
+      --muted: #7b7a8e;
+      --tag-bg: rgba(255,107,71,0.10);
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --nav-h: 60px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(254,252,249,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7vw;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      border-bottom-color: var(--border);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--accent); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── Shared ── */
+    section { padding: 100px 7vw; }
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 3rem;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #e5522e;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,107,71,0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: calc(var(--nav-h) + 60px);
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: var(--accent);
+      opacity: 0.18;
+      top: -120px; right: -80px;
+    }
+    .blob-2 {
+      width: 380px; height: 380px;
+      background: var(--accent3);
+      opacity: 0.15;
+      bottom: 40px; left: -60px;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.75rem;
+      color: var(--text);
+    }
+    .hero-title .hl { color: var(--accent); }
+    .hero-tagline {
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      gap: 2.5rem;
+      width: fit-content;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 0.3rem; }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .stat-divider {
+      width: 1px;
+      background: var(--border);
+      align-self: stretch;
+    }
+
+    /* ── About ── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      line-height: 1.85;
+    }
+    .about-text p.muted { color: var(--muted); font-size: 0.88rem; }
+    .identity-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .identity-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .identity-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .identity-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .identity-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .identity-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Case Study ── */
+    #casestudy { background: var(--bg); }
+    .case-wrapper {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      overflow: hidden;
+    }
+    .case-header {
+      padding: 2.5rem 3rem;
+      background: linear-gradient(135deg, rgba(255,107,71,0.05) 0%, rgba(13,184,140,0.04) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .case-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(255,107,71,0.1);
+      padding: 0.3rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+    .case-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .case-sub { color: var(--muted); font-size: 0.88rem; }
+    .case-body {
+      padding: 2.5rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+    .case-step { display: flex; flex-direction: column; gap: 0.75rem; }
+    .case-step-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .case-step-label.problem { color: var(--accent2); }
+    .case-step-label.analysis { color: var(--accent); }
+    .case-step-label.result { color: var(--accent3); }
+    .case-step-content { font-size: 0.875rem; color: var(--text); line-height: 1.7; }
+    .case-step-content ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; }
+    .case-step-content li { color: var(--muted); font-size: 0.83rem; }
+    .case-step-content strong { font-weight: 700; }
+    .case-results {
+      padding: 1.5rem 3rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .result-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .result-chip.orange { background: rgba(255,107,71,0.12); color: var(--accent); }
+    .result-chip.indigo { background: rgba(91,94,244,0.12); color: var(--accent2); }
+    .result-chip.green  { background: rgba(13,184,140,0.12); color: var(--accent3); }
+
+    /* ── Experience ── */
+    #experience { background: var(--surface); }
+    .exp-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+    .exp-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      transition: all 0.3s;
+    }
+    .exp-card:nth-child(2) { border-left-color: var(--accent2); }
+    .exp-card:nth-child(3) { border-left-color: var(--accent3); }
+    .exp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+    }
+    .exp-company { font-size: 1.05rem; font-weight: 800; color: var(--text); }
+    .exp-role { font-size: 0.83rem; color: var(--muted); margin-top: 0.25rem; }
+    .exp-period {
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      background: var(--surface);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .exp-bullets li {
+      font-size: 0.875rem;
+      color: var(--text);
+      padding-left: 1.2rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .exp-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+      top: 0.1em;
+    }
+    .exp-card:nth-child(2) .exp-bullets li::before { color: var(--accent2); }
+    .exp-card:nth-child(3) .exp-bullets li::before { color: var(--accent3); }
+    .kpi-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .kpi-chip {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      background: rgba(255,107,71,0.10);
+      color: var(--accent);
+    }
+    .kpi-chip.green { background: rgba(13,184,140,0.10); color: var(--accent3); }
+
+    /* ── Projects ── */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-top: 3px solid transparent;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-top-color: var(--accent);
+    }
+    .project-num { font-size: 0.72rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
+    .project-title { font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1.35; }
+    .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .project-bullets li {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding-left: 0.9rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    .project-bullets li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    /* ── Skills ── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+    .skill-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .skill-title { font-size: 0.95rem; font-weight: 800; color: var(--text); margin-bottom: 0.9rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 0.28rem 0.7rem;
+      border-radius: 50px;
+      background: var(--tag-bg);
+      color: var(--accent);
+    }
+    .tag.teal { background: rgba(13,184,140,0.10); color: var(--accent3); }
+    .tag.pink  { background: rgba(91,94,244,0.10); color: var(--accent2); }
+
+    /* ── Numbers ── */
+    #numbers { background: var(--bg); }
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+    .number-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      border-top: 3px solid transparent;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .number-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-top-color: var(--accent);
+    }
+    .number-big {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .number-label { font-size: 0.8rem; color: var(--muted); line-height: 1.45; }
+
+    /* ── Contact ── */
+    #contact {
+      background: var(--surface);
+      text-align: center;
+    }
+    #contact .section-label { display: block; }
+    .contact-body {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: -1.5rem auto 2.5rem;
+      line-height: 1.85;
+    }
+    .contact-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 2rem 7vw;
+      font-size: 0.83rem;
+    }
+
+    /* ── Fade-up ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.08s; }
+    .fade-up:nth-child(3) { transition-delay: 0.16s; }
+    .fade-up:nth-child(4) { transition-delay: 0.24s; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      section { padding: 70px 5vw; }
+      nav { padding: 0 5vw; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: rgba(254,252,249,0.97);
+        padding: 1.5rem 5vw;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        gap: 1.25rem;
+      }
+      .hamburger { display: flex; }
+      .hero-stats { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .stat-divider { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .identity-cards { grid-template-columns: 1fr; }
+      .case-body { grid-template-columns: 1fr; }
+      .case-header, .case-body, .case-results { padding: 1.5rem; }
+      .exp-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">김<span>사랑</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#casestudy">Case Study</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#numbers">Numbers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Service Planner · Data Analyst</p>
+    <h1 class="hero-title">
+      서비스를 운영하며<br>
+      <span class="hl">인사이트를 만드는</span><br>
+      기획자, 김사랑
+    </h1>
+    <p class="hero-tagline">
+      막연한 가설을 데이터로 뒤집고, 운영 프로세스를 구조화하는 방식으로 일합니다.<br>
+      카카오뱅크 AI서비스 운영 · 데이터 분석 · 프로세스 개선 경력 1년 9개월.
+    </p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn btn-primary">경험 보러 가기 →</a>
+      <a href="#contact" class="btn btn-outline">연락하기</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">200%</span>
+        <span class="stat-label">수익 목표 초과 달성</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">30%+</span>
+        <span class="stat-label">서비스 수익 개선</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">50%</span>
+        <span class="stat-label">운영 시간 단축</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">15만</span>
+        <span class="stat-label">DAU 규모 서비스 운영</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <span class="section-label">About</span>
+  <h2 class="section-title">어떤 사람인가요</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>빈 문서 앞에서 가장 먼저 손이 가는 사람입니다.<br>매뉴얼이 없으면 직접 만들고, 프로세스가 없으면 설계하고, 조직이 없으면 창설합니다.</p>
+      <p>카카오뱅크에서 DAU 15만명 규모 AI 광고 서비스의 런칭부터 운영까지 참여하며, 수익 데이터를 자발적으로 분석해 기존 가설을 뒤집는 인사이트를 만들었습니다.</p>
+      <p>한국생산성본부에서는 운영 매뉴얼이 전혀 없는 정부지원 사업에 투입되어 100장 분량의 실무 가이드를 직접 제작했습니다.</p>
+      <p class="muted">미국·체코 교환학생 경험. ADsP · SQLD 자격증 보유.</p>
+    </div>
+    <div class="identity-cards">
+      <div class="identity-card fade-up">
+        <div class="identity-icon">🔍</div>
+        <div class="identity-title">데이터로 말하는 사람</div>
+        <div class="identity-desc">감이 아니라 상관계수로 검증. 막연한 가설을 데이터로 뒤집었습니다.</div>
+      </div>
+      <div class="identity-card fade-up">
+        <div class="identity-icon">🏗️</div>
+        <div class="identity-title">구조화하는 사람</div>
+        <div class="identity-desc">없는 프로세스를 만들고, 반복 가능한 체계로 바꾸는 것을 좋아합니다.</div>
+      </div>
+      <div class="identity-card fade-up">
+        <div class="identity-icon">🙋</div>
+        <div class="identity-title">자발적으로 움직이는 사람</div>
+        <div class="identity-desc">시키지 않아도 필요한 일을 찾아서 먼저 시작합니다.</div>
+      </div>
+      <div class="identity-card fade-up">
+        <div class="identity-icon">⚡</div>
+        <div class="identity-title">빠르게 적응하는 사람</div>
+        <div class="identity-desc">"오래 함께한 동료처럼 손발이 딱 맞는다"는 평가를 받습니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study -->
+<section id="casestudy">
+  <span class="section-label">Case Study</span>
+  <h2 class="section-title">데이터로 운영 전략을 바꾼 경험</h2>
+  <div class="case-wrapper fade-up">
+    <div class="case-header">
+      <span class="case-badge">Featured Project</span>
+      <h3 class="case-title">카카오뱅크 AI 키워드퀴즈</h3>
+      <p class="case-sub">DAU 15만명 규모 · AI 기반 참여형 광고 서비스 · 신규 수익 모델</p>
+    </div>
+    <div class="case-body">
+      <div class="case-step">
+        <span class="case-step-label problem">🎯 문제 정의</span>
+        <div class="case-step-content">
+          서비스 오픈 초기, 수익은 목표를 초과 달성하고 있었지만 "왜 잘 되는지"에 대한 명확한 분석이 없는 상태.
+          <br><br>
+          <strong>기존 가설:</strong> 오후 시간대 리워드와 참여도가 수익에 가장 큰 영향을 미친다.
+        </div>
+      </div>
+      <div class="case-step">
+        <span class="case-step-label analysis">🔬 분석 과정</span>
+        <div class="case-step-content">
+          <ul>
+            <li>4주간 일별 이용 데이터 및 수익 지표 직접 수집</li>
+            <li>SQL 기반 데이터 조회 및 AI 분석 도구 활용</li>
+            <li>문제 유형·시간대·참여도·수익 간 상관관계 분석</li>
+          </ul>
+          <br>
+          <strong>핵심 발견:</strong> 예상과 달리 "오전 문제 난이도"가 전체 수익에 가장 큰 영향을 미친다는 패턴 발견.
+        </div>
+      </div>
+      <div class="case-step">
+        <span class="case-step-label result">✅ 실행 & 결과</span>
+        <div class="case-step-content">
+          <ul>
+            <li>시간대별 난이도 조정 기준 수립</li>
+            <li>운영 문제 출제 방식 수정</li>
+            <li>월간 회고 및 임원 보고 자료 반영</li>
+          </ul>
+          <br>
+          데이터 분석 → 인사이트 도출 → 운영 전략 반영까지 전 과정 주도 수행.
+        </div>
+      </div>
+    </div>
+    <div class="case-results">
+      <span class="result-chip orange">🚀 수익 목표 200% 초과 달성</span>
+      <span class="result-chip orange">📈 수익 초기 대비 30%+ 개선</span>
+      <span class="result-chip green">✅ 데이터 기반 운영 전략 정립</span>
+      <span class="result-chip indigo">💡 분석~전략 반영 전 과정 주도</span>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <span class="section-label">Experience</span>
+  <h2 class="section-title">경력 & 경험</h2>
+  <div class="exp-cards">
+
+    <div class="exp-card fade-up">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">카카오뱅크 — 서비스 운영 · 데이터 분석</div>
+          <div class="exp-role">AI 키워드퀴즈 / 돈버는재미 / 저금통withCJ</div>
+        </div>
+        <span class="exp-period">2025.09 ~ 현재 · 약 6개월</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>DAU 15만명 규모 AI 기반 광고 서비스 런칭부터 운영까지 전 과정 참여</li>
+        <li>4주간 일별 데이터를 자발적으로 수집, SQL + AI 분석으로 기존 가설을 뒤집는 인사이트 도출 → 운영 전략 변경</li>
+        <li>반복 VOC "리워드 미지급" 원인을 PM·개발자와 추적, 시스템 병목 발견 → 재발 방지 로직 개선</li>
+        <li>제휴 캠페인 운영 프로세스를 직접 설계, 테스트~오픈 소요 시간 5시간 → 2.5시간으로 단축</li>
+        <li>Figma 기반 파트너사별 워크스페이스 구축, 준법감시 심의필 프로세스 자체 수행</li>
+      </ul>
+      <div class="kpi-chips">
+        <span class="kpi-chip">수익 200% 초과달성</span>
+        <span class="kpi-chip">수익 30%+ 개선</span>
+        <span class="kpi-chip green">운영시간 50% 단축</span>
+        <span class="kpi-chip green">제휴 10건+ 집행</span>
+      </div>
+    </div>
+
+    <div class="exp-card fade-up">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">한국생산성본부 (KPC) — ESG 교육사업 기획·운영</div>
+          <div class="exp-role">인턴 → 계약직 (프로모션)</div>
+        </div>
+        <span class="exp-period">2024.03 ~ 2025.09 · 14개월</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>정부지원 ESG 교육사업 전 과정 기획·운영 (강사 섭외, 커리큘럼, 현장 운영)</li>
+        <li>운영 매뉴얼 전무 상태에서 100장+ 실무 가이드 직접 제작 — 후임자 업무 수행 기반 마련</li>
+        <li>e나라도움 기반 50건+ 정부 정산 집행, 서류 오류율 0% 유지</li>
+        <li>숏폼 콘텐츠 TF 자발적 구성·리딩 — 2개월 내 누적 조회수 8,000회+</li>
+        <li>ESG 해외연수(싱가포르) 입찰 기획 참여, 글로벌 커리큘럼 제안서 작성</li>
+      </ul>
+      <div class="kpi-chips">
+        <span class="kpi-chip">100장+ 매뉴얼</span>
+        <span class="kpi-chip">정산 50건+</span>
+        <span class="kpi-chip green">릴스 조회수 8,000+</span>
+      </div>
+    </div>
+
+    <div class="exp-card fade-up">
+      <div class="exp-header">
+        <div>
+          <div class="exp-company">학과 밴드 소모임 'ITs 통통' 창설·운영</div>
+          <div class="exp-role">창설자 / 운영 리더</div>
+        </div>
+        <span class="exp-period">2022 ~ 현재 · 4년째</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>코로나 이후 단절된 학과 교류 회복을 위해 밴드 소모임 자발적 창설</li>
+        <li>첫 공연 실패 → 구조 전면 재설계 (실력별 세션, WBS 기반 역할 체계, 소규모 버스킹)</li>
+        <li>25명 → 50명+으로 성장, 현재 4년째 자율 운영 중</li>
+      </ul>
+      <div class="kpi-chips">
+        <span class="kpi-chip">누적 관객 400명+</span>
+        <span class="kpi-chip">공연 6회 기획</span>
+        <span class="kpi-chip green">50명+ 규모 유지</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <span class="section-label">Projects</span>
+  <h2 class="section-title">주요 프로젝트</h2>
+  <div class="projects-grid">
+
+    <div class="project-card fade-up">
+      <span class="project-num">01</span>
+      <div class="project-title">AI 키워드퀴즈 — 데이터 기반 수익 개선</div>
+      <ul class="project-bullets">
+        <li>AI 기반 광고 서비스 런칭 및 운영 참여</li>
+        <li>데이터 분석으로 기존 가설을 뒤집는 인사이트 도출</li>
+        <li>수익 30%+ 개선, 목표 대비 200% 초과 달성</li>
+      </ul>
+    </div>
+
+    <div class="project-card fade-up">
+      <span class="project-num">02</span>
+      <div class="project-title">돈 버는 재미 — 운영 프로세스 구축</div>
+      <ul class="project-bullets">
+        <li>제휴 캠페인 운영 구조 설계 및 자동화</li>
+        <li>테스트~오픈 시간 5시간 → 2.5시간 단축</li>
+        <li>10건 이상의 제휴 안정적 집행</li>
+      </ul>
+    </div>
+
+    <div class="project-card fade-up">
+      <span class="project-num">03</span>
+      <div class="project-title">ESG 교육사업 — 운영 체계 구축</div>
+      <ul class="project-bullets">
+        <li>매뉴얼 없는 상태에서 100장+ 실무 가이드 제작</li>
+        <li>50건+ 정부 정산 오류 없이 수행</li>
+        <li>교육 운영 프로세스 구조화</li>
+      </ul>
+    </div>
+
+    <div class="project-card fade-up">
+      <span class="project-num">04</span>
+      <div class="project-title">ITs 통통 — 조직 창설 및 성장</div>
+      <ul class="project-bullets">
+        <li>학과 밴드 소모임 자발적 창설</li>
+        <li>실패 이후 운영 구조 재설계</li>
+        <li>25명 → 50명+ 규모 성장</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <span class="section-label">Skills &amp; Strengths</span>
+  <h2 class="section-title">역량 &amp; 도구</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Data</div>
+      <div class="skill-title">데이터 분석</div>
+      <div class="tags">
+        <span class="tag">SQL (SQLD)</span>
+        <span class="tag">데이터 시각화</span>
+        <span class="tag">상관분석</span>
+        <span class="tag">ADsP</span>
+        <span class="tag teal">AI 분석 도구</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Planning</div>
+      <div class="skill-title">서비스·사업 기획</div>
+      <div class="tags">
+        <span class="tag">서비스 운영</span>
+        <span class="tag">프로세스 설계</span>
+        <span class="tag">VOC 분석</span>
+        <span class="tag">제휴 관리</span>
+        <span class="tag teal">STAR 문서화</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Tools</div>
+      <div class="skill-title">협업 &amp; 생산성 툴</div>
+      <div class="tags">
+        <span class="tag">Figma</span>
+        <span class="tag">Notion</span>
+        <span class="tag teal">Jira</span>
+        <span class="tag">Google Sheets</span>
+        <span class="tag pink">e나라도움</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Communication</div>
+      <div class="skill-title">글로벌 커뮤니케이션</div>
+      <div class="tags">
+        <span class="tag">영어 실무</span>
+        <span class="tag teal">미국 교환학생</span>
+        <span class="tag teal">체코 교환학생</span>
+        <span class="tag">외국인 행정 대응</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Certificate</div>
+      <div class="skill-title">자격증</div>
+      <div class="tags">
+        <span class="tag">ADsP</span>
+        <span class="tag">SQLD</span>
+        <span class="tag pink">컴활 1급</span>
+        <span class="tag pink">워드 1급</span>
+        <span class="tag">TOEIC</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-up">
+      <div class="skill-category">Leadership</div>
+      <div class="skill-title">조직 운영</div>
+      <div class="tags">
+        <span class="tag">TF 리딩</span>
+        <span class="tag">비동기 협업</span>
+        <span class="tag teal">갈등 조율</span>
+        <span class="tag">매뉴얼 제작</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Numbers -->
+<section id="numbers">
+  <span class="section-label">Numbers</span>
+  <h2 class="section-title">숫자로 증명합니다</h2>
+  <div class="numbers-grid">
+    <div class="number-card fade-up"><div class="number-big">15만</div><div class="number-label">DAU 규모 AI 서비스 운영</div></div>
+    <div class="number-card fade-up"><div class="number-big">200%</div><div class="number-label">수익 목표 대비 초과 달성</div></div>
+    <div class="number-card fade-up"><div class="number-big">30%+</div><div class="number-label">서비스 수익 초기 대비 개선</div></div>
+    <div class="number-card fade-up"><div class="number-big">50%</div><div class="number-label">운영 시간 5h → 2.5h 단축</div></div>
+    <div class="number-card fade-up"><div class="number-big">10건+</div><div class="number-label">제휴 캠페인 안정적 집행</div></div>
+    <div class="number-card fade-up"><div class="number-big">100장+</div><div class="number-label">실무 매뉴얼 직접 제작</div></div>
+    <div class="number-card fade-up"><div class="number-big">50건+</div><div class="number-label">정부 정산 오류율 0%</div></div>
+    <div class="number-card fade-up"><div class="number-big">400명+</div><div class="number-label">소모임 기획 공연 누적 관객</div></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <span class="section-label">Contact</span>
+  <h2 class="section-title">함께 일하고 싶다면</h2>
+  <p class="contact-body">
+    서비스 기획 · 데이터 분석 · 사업 운영 직무 지원 중입니다.<br>
+    연락 주시면 빠르게 답변드리겠습니다.
+  </p>
+  <div class="contact-btns">
+    <a href="#" class="btn btn-primary">이메일 보내기 →</a>
+    <a href="#" class="btn btn-outline">LinkedIn</a>
+    <a href="#" class="btn btn-outline">경력기술서 다운로드</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  © 2026 김사랑. 포트폴리오 사이트. 직접 설계하고, 직접 만들었습니다.
+</footer>
+
+<script>
+  // Nav scroll shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => navLinks.classList.remove('open'))
+  );
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  const activeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.45 });
+  sections.forEach(s => activeObserver.observe(s));
+
+  // Fade-up on scroll
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+</script>
+</body>
+</html>
