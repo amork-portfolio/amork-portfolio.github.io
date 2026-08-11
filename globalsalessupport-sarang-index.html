@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김사랑 — Global Sales Support</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Paperlogy';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2410-1@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');
+      font-weight: 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Paperlogy';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2410-1@1.0/Paperlogy-6SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #fcfbf8;
+      --surface: #f5f2ec;
+      --ink: #1b1a18;
+      --muted: #6f6a62;
+      --border: #e7e3da;
+      --border-dark: #d3cec3;
+      --accent: #a63d57;
+      --accent-deep: #8c2f46;
+      --accent-tint: #f6ebee;
+      --display: 'Paperlogy', 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+      --num: 'Instrument Serif', 'Pretendard', 'Apple SD Gothic Neo', serif;
+      --sans: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      --nav-h: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--accent); color: #fff; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(252,251,248,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6vw;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+    .nav-logo {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 1.9rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); }
+
+    /* ── Shared ── */
+    section { padding: 105px 6vw; }
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.75rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 3.5rem;
+    }
+    .sec-num {
+      font-family: var(--num);
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+      flex-shrink: 0;
+    }
+    .sec-titles { display: flex; flex-direction: column; gap: 0.2rem; }
+    .sec-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .sec-title {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      transition: all 0.22s ease;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-fill { background: var(--ink); color: #fff; }
+    .btn-fill:hover { background: var(--accent-deep); border-color: var(--accent-deep); }
+    .btn-ghost { background: transparent; color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-bottom: 0;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-meta .accent { color: var(--accent); }
+    .hero-name {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(2.6rem, 6.5vw, 4.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 2.5rem;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3.5rem;
+      align-items: start;
+      border-top: 1px solid var(--ink);
+      padding: 2.5rem 0 3.5rem;
+    }
+    .hero-statement {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+    }
+    .hero-statement em { font-style: normal; color: var(--accent); }
+    .hero-side { display: flex; flex-direction: column; gap: 1.75rem; }
+    .hero-tagline { font-size: 0.92rem; color: var(--muted); line-height: 1.85; }
+    .hero-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+    }
+    .stat-item {
+      padding: 1.7rem 1.4rem 2.4rem 0;
+    }
+    .stat-item + .stat-item { padding-left: 1.4rem; border-left: 1px solid var(--border); }
+    .stat-num {
+      font-family: var(--num);
+      font-size: 2.3rem;
+      color: var(--ink);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label { font-size: 0.77rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── About ── */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 4.5rem;
+      align-items: start;
+    }
+    .about-text p { margin-bottom: 1.4rem; line-height: 1.95; }
+    .about-text p.muted { color: var(--muted); font-size: 0.85rem; }
+    .identity-list { display: flex; flex-direction: column; }
+    .identity-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.4rem;
+      padding: 1.4rem 0;
+      border-top: 1px solid var(--border-dark);
+      transition: padding-left 0.25s ease;
+    }
+    .identity-row:hover { padding-left: 0.6rem; }
+    .identity-row:last-child { border-bottom: 1px solid var(--border-dark); }
+    .identity-num {
+      font-family: var(--num);
+      font-size: 1.15rem;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+    .identity-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 0.98rem;
+      margin-bottom: 0.3rem;
+    }
+    .identity-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Case Study ── */
+    .case-frame { border: 1px solid var(--ink); }
+    .case-header {
+      padding: 2.5rem 3rem;
+      border-bottom: 1px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .case-title {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+      letter-spacing: -0.02em;
+      line-height: 1.35;
+      max-width: 620px;
+    }
+    .case-sub { font-size: 0.8rem; color: var(--muted); text-align: right; line-height: 1.7; }
+    .case-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .case-step { padding: 2.4rem 2.5rem; }
+    .case-step + .case-step { border-left: 1px solid var(--border); }
+    .case-step-label {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.1rem;
+    }
+    .case-step-label .num {
+      font-family: var(--num);
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+    .case-step-content { font-size: 0.855rem; line-height: 1.8; }
+    .case-step-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .case-step-content li {
+      color: var(--muted);
+      font-size: 0.82rem;
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .case-step-content li::before {
+      content: '—';
+      position: absolute; left: 0; top: 0.2em;
+      color: var(--accent); font-size: 0.7rem;
+    }
+    .case-step-content strong { font-weight: 700; }
+    .case-quote {
+      padding: 2.2rem 3rem;
+      border-top: 1px solid var(--ink);
+      background: var(--accent-tint);
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(1rem, 1.9vw, 1.25rem);
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+    }
+    .case-quote .q-label {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .case-results {
+      padding: 1.4rem 3rem;
+      border-top: 1px solid var(--ink);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .case-results span { display: inline-flex; align-items: center; }
+    .case-results span:not(:last-child)::after {
+      content: '/';
+      margin: 0 1rem;
+      color: var(--accent);
+      font-family: var(--num);
+    }
+
+    /* ── Experience (ledger) ── */
+    #experience { background: var(--surface); }
+    .exp-ledger { display: flex; flex-direction: column; }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      padding: 2.6rem 0;
+      border-top: 1px solid var(--border-dark);
+    }
+    .exp-row:last-child { border-bottom: 1px solid var(--border-dark); }
+    .exp-when {
+      font-family: var(--num);
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .exp-when .sub { display: block; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.05em; }
+    .exp-company {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.3rem;
+    }
+    .exp-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.3rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.3rem; }
+    .exp-bullets li {
+      font-size: 0.875rem;
+      padding-left: 1.3rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .exp-bullets li::before {
+      content: '';
+      position: absolute; left: 0; top: 0.72em;
+      width: 14px; height: 1px;
+      background: var(--accent);
+    }
+    .exp-kpi {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-deep);
+      letter-spacing: 0.01em;
+    }
+    .exp-kpi span:not(:last-child)::after { content: '·'; margin: 0 0.6rem; color: var(--border-dark); }
+
+    /* ── Projects (index list) ── */
+    .proj-list { display: flex; flex-direction: column; }
+    .proj-row {
+      display: grid;
+      grid-template-columns: 90px 1.1fr 1fr;
+      gap: 2.5rem;
+      padding: 2.2rem 0;
+      border-top: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+    .proj-row:last-child { border-bottom: 1px solid var(--border); }
+    .proj-row:hover { background: var(--accent-tint); }
+    .proj-row:hover .proj-title { color: var(--accent-deep); }
+    .proj-num {
+      font-family: var(--num);
+      font-size: 1.9rem;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--ink);
+      padding-top: 0.2rem;
+    }
+    .proj-title {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.12rem;
+      line-height: 1.5;
+      letter-spacing: -0.015em;
+      transition: color 0.25s;
+    }
+    .proj-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .proj-bullets li {
+      font-size: 0.81rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      position: relative;
+      line-height: 1.65;
+    }
+    .proj-bullets li::before {
+      content: '—';
+      position: absolute; left: 0; top: 0.2em;
+      color: var(--accent); font-size: 0.68rem;
+    }
+
+    /* ── Skills (definition list) ── */
+    #skills { background: var(--surface); }
+    .skill-list { display: flex; flex-direction: column; }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 2.5rem;
+      padding: 1.7rem 0;
+      border-top: 1px solid var(--border-dark);
+      align-items: baseline;
+    }
+    .skill-row:last-child { border-bottom: 1px solid var(--border-dark); }
+    .skill-cat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .skill-cat .en {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .skill-cat .kr {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .skill-items {
+      font-size: 0.88rem;
+      color: var(--ink);
+      line-height: 2;
+    }
+    .skill-items b { font-weight: 400; }
+    .skill-items b:not(:last-child)::after { content: '·'; margin: 0 0.7rem; color: var(--accent); }
+
+    /* ── Numbers ── */
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0 2.5rem;
+    }
+    .number-item {
+      padding: 2rem 0 2.4rem;
+      border-top: 1px solid var(--ink);
+    }
+    .number-big {
+      font-family: var(--num);
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.7rem;
+    }
+    .number-label { font-size: 0.79rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Contact ── */
+    #contact {
+      background: var(--ink);
+      color: #fcfbf8;
+      padding-bottom: 60px;
+    }
+    #contact .sec-head { border-bottom-color: rgba(252,251,248,0.9); }
+    #contact .sec-title { color: #fcfbf8; }
+    #contact .sec-num { -webkit-text-stroke-color: #d9a1b0; }
+    #contact .sec-label { color: #d9a1b0; }
+    .contact-body {
+      color: rgba(252,251,248,0.6);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      max-width: 480px;
+      margin-bottom: 3.5rem;
+    }
+    .contact-mail {
+      display: inline-block;
+      font-family: var(--num);
+      font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+      letter-spacing: 0.01em;
+      color: #fcfbf8;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(252,251,248,0.35);
+      padding-bottom: 0.3rem;
+      margin-bottom: 2.75rem;
+      transition: color 0.25s, border-color 0.25s;
+      word-break: break-all;
+    }
+    .contact-mail:hover { color: #d9a1b0; border-color: #d9a1b0; }
+    .contact-links {
+      display: flex;
+      gap: 2.2rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .contact-links a {
+      color: rgba(252,251,248,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-links a:hover { color: #fcfbf8; }
+    .footer-line {
+      margin-top: 5rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid rgba(252,251,248,0.15);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.72rem;
+      color: rgba(252,251,248,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Fade-up ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 820px) {
+      section { padding: 70px 5.5vw; }
+      nav { padding: 0 5.5vw; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: rgba(252,251,248,0.98);
+        padding: 1.75rem 5.5vw;
+        border-bottom: 1px solid var(--border);
+        gap: 1.4rem;
+      }
+      .hamburger { display: flex; }
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2.5rem; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 1.4rem 1rem 1.6rem 0; border-bottom: 1px solid var(--border); }
+      .stat-item + .stat-item { padding-left: 0; border-left: none; }
+      .stat-item:nth-child(even) { padding-left: 1.2rem; border-left: 1px solid var(--border); }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .case-header { flex-direction: column; align-items: flex-start; padding: 1.75rem 1.5rem; }
+      .case-sub { text-align: left; }
+      .case-body { grid-template-columns: 1fr; }
+      .case-step { padding: 1.75rem 1.5rem; }
+      .case-step + .case-step { border-left: none; border-top: 1px solid var(--border); }
+      .case-quote, .case-results { padding: 1.75rem 1.5rem; }
+      .exp-row { grid-template-columns: 1fr; gap: 0.9rem; padding: 2rem 0; }
+      .proj-row { grid-template-columns: 1fr; gap: 0.9rem; }
+      .proj-num { font-size: 1.5rem; }
+      .skill-row { grid-template-columns: 1fr; gap: 0.6rem; }
+      .numbers-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">김사랑</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#casestudy">Case Study</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#numbers">Numbers</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-meta">
+    <span>Global Sales Support · Operations Specialist</span>
+    <span class="accent">Portfolio — 2026</span>
+  </div>
+  <h1 class="hero-name">김사랑</h1>
+  <div class="hero-grid">
+    <p class="hero-statement">
+      매뉴얼 없는 곳에서 <em>숫자로 신뢰를 지키는</em> 해외영업 실무자.
+      정해진 기준이 없는 업무일수록 먼저 흐름을 파악하고, 누가 맡아도 같은 결과가 나오는 구조로 만듭니다.
+    </p>
+    <div class="hero-side">
+      <p class="hero-tagline">
+        카카오뱅크 · 한국생산성본부 — 서비스 운영·사업 운영 1년 10개월.<br>
+        데이터로 검증하고, 구조로 남기고, 국경 밖과 소통합니다.
+      </p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn btn-fill">경험 보러 가기 ↓</a>
+        <a href="#contact" class="btn btn-ghost">연락하기</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">30%+</span>
+      <span class="stat-label">일 평균 수익 개선<br>(데이터 분석 기반)</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">50%+</span>
+      <span class="stat-label">제휴 캠페인<br>운영 시간 단축</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">150명</span>
+      <span class="stat-label">다자 이해관계자<br>커뮤니케이션 전담</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">50건+</span>
+      <span class="stat-label">정부지원 사업<br>정산 집행</span>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div class="sec-titles">
+      <span class="sec-label">About</span>
+      <h2 class="sec-title">어떤 사람인가요</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>새 업무에 투입되면 가장 먼저 쌓여 있는 자료부터 풀어 흐름을 파악합니다.<br>참고할 매뉴얼이 없으면 직접 만들고, 그 기준을 누가 맡아도 같은 결과가 나오는 구조로 남깁니다.</p>
+      <p>카카오뱅크에서는 일 이용자 15만 명 규모의 AI 참여형 광고 서비스에서 4주간 이용·수익 데이터를 직접 분석해 기존 가설과 다른 수익 구조를 발견했고, 운영 전략 수정으로 이어져 일 평균 수익을 30% 이상 개선했습니다.</p>
+      <p>한국생산성본부에서는 운영 기준이 전무한 신규 정부지원 사업에서 150명의 이해관계자를 조율하며 업무를 5단계로 모듈화해, 반복 문의를 30% 이상 줄이고 연 12회 교육을 무공백으로 운영했습니다.</p>
+      <p class="muted">국제통상학·경영학 전공. 미국 10개월·체코 한 학기 교환학생. 무역영어 1급 · 외환전문역 2종 · ADsP · SQLD · OPIc IH.</p>
+    </div>
+    <div class="identity-list">
+      <div class="identity-row fade-up">
+        <span class="identity-num">01</span>
+        <div>
+          <div class="identity-title">숫자 하나까지 지키는 사람</div>
+          <div class="identity-desc">정산 50건+ 집행 · 연 12회 무공백 운영. 반복 실무에서는 정확도가 곧 신뢰라는 기준으로 일합니다.</div>
+        </div>
+      </div>
+      <div class="identity-row fade-up">
+        <span class="identity-num">02</span>
+        <div>
+          <div class="identity-title">가이드가 없으면 만드는 사람</div>
+          <div class="identity-desc">두 조직 모두에서 매뉴얼 없는 업무를 모듈화·템플릿화했습니다. 캠페인 실행 시간 50%+ 단축.</div>
+        </div>
+      </div>
+      <div class="identity-row fade-up">
+        <span class="identity-num">03</span>
+        <div>
+          <div class="identity-title">요구가 다른 상대를 조율하는 사람</div>
+          <div class="identity-desc">150명 이해관계자 응대 전담. 파트너사 요청을 디자인·준법감시 등 유관부서와 조율했습니다.</div>
+        </div>
+      </div>
+      <div class="identity-row fade-up">
+        <span class="identity-num">04</span>
+        <div>
+          <div class="identity-title">국경 밖과 소통해온 사람</div>
+          <div class="identity-desc">미국·체코 교환학생 2회, OPIc IH, 무역영어 1급. 현지에서 K-뷰티의 인기를 직접 경험했습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Case Study -->
+<section id="casestudy">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div class="sec-titles">
+      <span class="sec-label">Case Study</span>
+      <h2 class="sec-title">데이터로 운영 전략을 바꾼 경험</h2>
+    </div>
+  </div>
+  <div class="case-frame fade-up">
+    <div class="case-header">
+      <h3 class="case-title">AI 키워드퀴즈 — 수익 구조 분석 및 운영 전략 개선</h3>
+      <p class="case-sub">일 이용자 15만 명 · AI 참여형 광고 서비스<br>런칭 전 투입, 출제 기준 설계부터 운영 데이터 분석까지</p>
+    </div>
+    <div class="case-body">
+      <div class="case-step">
+        <span class="case-step-label"><span class="num">01</span>문제 정의</span>
+        <div class="case-step-content">
+          서비스 오픈 4주차, 수익은 목표를 초과 달성 중이었지만 "왜 잘 되는지" 설명할 수 있는 사람이 없는 상황.
+          <br><br>
+          <strong>팀 내 통용 가설:</strong> 리워드가 걸린 오후 문제가 수익을 견인한다는 경험적 판단.
+        </div>
+      </div>
+      <div class="case-step">
+        <span class="case-step-label"><span class="num">02</span>분석 과정</span>
+        <div class="case-step-content">
+          <ul>
+            <li>4주간 일별 이용·수익 데이터를 SQL로 직접 추출 (운영 업무 외 시간 활용)</li>
+            <li>LLM 기반 분석 도구로 문제 난이도·시간대·수익 간 상관관계 분석</li>
+            <li>기존 가설을 뒤집는 결과가 나와, 우연이 아닌지 데이터 반복 대조 검증</li>
+          </ul>
+        </div>
+      </div>
+      <div class="case-step">
+        <span class="case-step-label"><span class="num">03</span>실행 &amp; 결과</span>
+        <div class="case-step-content">
+          <ul>
+            <li>난이도 조정 기준 + 시간대별 운영 전략을 문서화해 팀에 제안</li>
+            <li>월간 회고·임원 보고 반영 → 운영 방향 공식 수정</li>
+            <li>발견한 난이도 기준을 출제 모델에 재학습 → 모델이 스스로 난이도를 매출에 맞게 조정</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="case-quote">
+      <span class="q-label">핵심 발견</span>
+      오전 문제의 난이도가 적절할 때 체류시간이 늘고, 이것이 하루 전체 수익으로 이어지는 구조였습니다.
+    </div>
+    <div class="case-results">
+      <span>일 평균 수익 30%+ 개선</span>
+      <span>임원 보고 반영 · 운영 방향 수정</span>
+      <span>출제 자동화 안정화 — 물량 2→3건 확대</span>
+      <span>난이도 기준, 팀 정식 운영 지표로 정착</span>
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div class="sec-titles">
+      <span class="sec-label">Experience</span>
+      <h2 class="sec-title">경력 &amp; 경험</h2>
+    </div>
+  </div>
+  <div class="exp-ledger">
+
+    <div class="exp-row fade-up">
+      <div class="exp-when">2025.09 — 2026.04<span class="sub">8개월</span></div>
+      <div>
+        <div class="exp-company">카카오뱅크 — 광고·제휴 서비스 운영 · 데이터 분석</div>
+        <div class="exp-role">광고제휴솔루션팀 인턴 — AI 키워드퀴즈 · 돈 버는 재미 제휴 서비스</div>
+        <ul class="exp-bullets">
+          <li>AI 출제 모델의 판단 기준(안전성·난이도·연관도) 설계 → 출제 자동화 정착, 물량 하루 2→3건 확대</li>
+          <li>4주간 이용·수익 데이터 분석으로 기존 가설 반증 → 일 평균 수익 30%+ 개선</li>
+          <li>제휴 운영 전 과정(테스트→QA→세팅→검수→오픈) 템플릿화 → 캠페인 실행 시간 50%+ 단축</li>
+          <li>제휴 캠페인 10건+ 집행 — 파트너사 요청을 디자인·준법감시 등 유관부서와 조율</li>
+          <li>광고 운영 현황 관리를 자동화 웹페이지로 구축 → 반복 작업 주 2시간 → 약 10분</li>
+        </ul>
+        <div class="exp-kpi">
+          <span>수익 30%+ 개선</span><span>운영시간 50%+ 단축</span><span>제휴 10건+ 집행</span><span>2h → 10min 자동화</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-row fade-up">
+      <div class="exp-when">2024.03 — 2025.09<span class="sub">인턴 6개월 + 계약직 8개월</span></div>
+      <div>
+        <div class="exp-company">한국생산성본부 (KPC) — 정부지원 ESG 교육사업 기획·운영</div>
+        <div class="exp-role">경영교육센터 — 산업부 지속가능경영 확산 사업</div>
+        <ul class="exp-bullets">
+          <li>운영 기준 전무한 신규 사업의 업무 전 과정을 5단계로 모듈화 → 반복 문의 30%+ 감소</li>
+          <li>단계별 가이드 50장+ 직접 제작 → 담당자 교체 후에도 동일 기준으로 운영</li>
+          <li>150명 이해관계자(50개 기업 · 강사 20명 · 내부 운영진) 커뮤니케이션 전담</li>
+          <li>e나라도움 기반 정산 50건+ 집행 및 보고</li>
+          <li>서울·지방 연 12회 교육 무공백 운영, 연말 보고까지 안정적 마무리</li>
+        </ul>
+        <div class="exp-kpi">
+          <span>이해관계자 150명</span><span>문의 30%↓</span><span>정산 50건+</span><span>연 12회 무공백</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-row fade-up">
+      <div class="exp-when">2023 —<span class="sub">창설 4년차 · 현재 자율 운영</span></div>
+      <div>
+        <div class="exp-company">학과 밴드 소모임 'ITs 통통' 창설·운영</div>
+        <div class="exp-role">창설자 · 초대 운영진</div>
+        <ul class="exp-bullets">
+          <li>첫 공연 실패 원인 분석 후 구조 재설계 → 수준별 세션 분리, 파트별 리더 권한 위임</li>
+          <li>참여 인원 25명 → 50명+ 확대, 공연 2회·정기 모임 7회+ 운영</li>
+          <li>운영 매뉴얼 제작으로 특정 인원 의존 탈피 → 4년째 자율 운영 지속</li>
+        </ul>
+        <div class="exp-kpi">
+          <span>50명+ 규모</span><span>공연 2회</span><span>4년째 자율 운영</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div class="sec-titles">
+      <span class="sec-label">Projects</span>
+      <h2 class="sec-title">주요 프로젝트</h2>
+    </div>
+  </div>
+  <div class="proj-list">
+
+    <div class="proj-row fade-up">
+      <span class="proj-num">01</span>
+      <div class="proj-title">돈 버는 재미 제휴 운영 효율화<br>— 실행 시간 50%+ 단축</div>
+      <ul class="proj-bullets">
+        <li>가이드라인 없는 신규 제휴 서비스의 운영 전 과정을 파트너사별 템플릿으로 구조화</li>
+        <li>함수 기반 QA·세팅 템플릿으로 휴먼 에러 원천 차단</li>
+        <li>캠페인 실행 시간 50%+ 단축, 신규 제휴 10건+ 안정 라이브</li>
+      </ul>
+    </div>
+
+    <div class="proj-row fade-up">
+      <span class="proj-num">02</span>
+      <div class="proj-title">광고 운영 현황 웹페이지 구축<br>— 주 2시간을 10분으로</div>
+      <ul class="proj-bullets">
+        <li>동료의 반복 작업을 관찰하고 자발적으로 개선 착수, AI 코딩 도구로 2시간 만에 프로토타입 구현</li>
+        <li>이미지 자동 연동 한계로 보류 후, 사내 활용 사례 학습 → 2주 만에 연동 방식 찾아 재설계</li>
+        <li>반복 작업 주 2시간 → 약 10분, 퇴사 후에도 팀이 인수인계 문서로 지속 사용</li>
+      </ul>
+    </div>
+
+    <div class="proj-row fade-up">
+      <span class="proj-num">03</span>
+      <div class="proj-title">운영 자동화 AI 지시파일<br>— 퇴사 후에도 쓰이는 문서</div>
+      <ul class="proj-bullets">
+        <li>운영 자동화 노하우를 LLM이 따라갈 수 있는 단계별 지시파일로 문서화</li>
+        <li>점검 체크리스트·입출력 예시·에러 패턴 명시 등 LLM 친화 문서화 기법 적용</li>
+        <li>사내 위키 이관, 인턴 종료 후에도 담당자가 이어받아 실사용 중</li>
+      </ul>
+    </div>
+
+    <div class="proj-row fade-up">
+      <span class="proj-num">04</span>
+      <div class="proj-title">저금통 with CJ 제휴 금융상품<br>— 신규 계좌 15%+ 증가</div>
+      <ul class="proj-bullets">
+        <li>2030 타겟 제휴 금융상품의 실시간 트래픽 분석 지원</li>
+        <li>2030 소비 패턴 기반 브랜드별 혜택 구조 설계 지원</li>
+        <li>신규 계좌 전작 대비 15%+ 증가, 제휴사 앱 신규 설치 전작 대비 20%+ 증가</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div class="sec-titles">
+      <span class="sec-label">Skills &amp; Strengths</span>
+      <h2 class="sec-title">역량 &amp; 도구</h2>
+    </div>
+  </div>
+  <div class="skill-list">
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">Trade &amp; Global</span><span class="kr">무역·글로벌 실무 기초</span></div>
+      <div class="skill-items"><b>무역영어 1급</b><b>외환전문역 2종</b><b>OPIc IH</b><b>영문 이메일·수출서류 독해</b><b>교환학생 2회 (미국·체코)</b></div>
+    </div>
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">Operations</span><span class="kr">운영 프로세스 설계</span></div>
+      <div class="skill-items"><b>업무 모듈화</b><b>운영 매뉴얼 문서화</b><b>QA·검수 템플릿</b><b>정산 관리</b></div>
+    </div>
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">Tools</span><span class="kr">협업 &amp; 생산성 툴</span></div>
+      <div class="skill-items"><b>Excel (함수·피벗)</b><b>Notion</b><b>Slack</b><b>Figma</b><b>LMS/ERP</b></div>
+    </div>
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">Data</span><span class="kr">데이터 정리·분석</span></div>
+      <div class="skill-items"><b>SQL (SQLD)</b><b>상관관계 분석</b><b>지표 모니터링</b><b>데이터 기반 보고 (ADsP)</b></div>
+    </div>
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">Certificate</span><span class="kr">자격증</span></div>
+      <div class="skill-items"><b>무역영어 1급 (2025.05)</b><b>ADsP (2025.09)</b><b>외환전문역 2종 (2025.12)</b><b>OPIc IH (2026.05)</b><b>SQLD (2026.06)</b></div>
+    </div>
+
+    <div class="skill-row fade-up">
+      <div class="skill-cat"><span class="en">AI</span><span class="kr">AI 활용·업무 자동화</span></div>
+      <div class="skill-items"><b>LLM 프롬프트 설계</b><b>자체 스크리닝 루프</b><b>AI 코딩 도구 웹 구축</b><b>자동화 지시파일</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Numbers -->
+<section id="numbers">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <div class="sec-titles">
+      <span class="sec-label">Numbers</span>
+      <h2 class="sec-title">숫자로 증명합니다</h2>
+    </div>
+  </div>
+  <div class="numbers-grid">
+    <div class="number-item fade-up"><div class="number-big">30%+</div><div class="number-label">일 평균 수익 개선<br>(데이터 분석 기반)</div></div>
+    <div class="number-item fade-up"><div class="number-big">50%+</div><div class="number-label">제휴 캠페인 실행 시간 단축</div></div>
+    <div class="number-item fade-up"><div class="number-big">10건+</div><div class="number-label">신규 제휴 캠페인 안정 라이브</div></div>
+    <div class="number-item fade-up"><div class="number-big">150명</div><div class="number-label">다자 이해관계자 소통 전담</div></div>
+    <div class="number-item fade-up"><div class="number-big">50건+</div><div class="number-label">정부지원 사업 정산 집행</div></div>
+    <div class="number-item fade-up"><div class="number-big">12회</div><div class="number-label">연간 교육 무공백 운영</div></div>
+    <div class="number-item fade-up"><div class="number-big">2h→10min</div><div class="number-label">반복 작업 자동화</div></div>
+    <div class="number-item fade-up"><div class="number-big">15만</div><div class="number-label">담당 서비스 일 이용자 규모</div></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <div class="sec-titles">
+      <span class="sec-label">Contact</span>
+      <h2 class="sec-title">함께 일하고 싶다면</h2>
+    </div>
+  </div>
+  <p class="contact-body">
+    해외영업지원 · 글로벌 세일즈 서포트 직무에 지원 중입니다.<br>
+    K-뷰티가 국경을 넘는 과정을, 운영의 자리에서 함께 만들고 싶습니다.
+  </p>
+  <a href="mailto:ksarang0226@gmail.com" class="contact-mail">ksarang0226@gmail.com</a>
+  <div class="contact-links">
+    <a href="#">LinkedIn ↗</a>
+    <a href="#">이력서 다운로드 ↓</a>
+  </div>
+  <div class="footer-line">
+    <span>© 2026 김사랑</span>
+    <span>직접 설계하고, 직접 만들었습니다.</span>
+  </div>
+</section>
+
+<script>
+  // Nav scroll border
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => navLinks.classList.remove('open'))
+  );
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a');
+  const activeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(s => activeObserver.observe(s));
+
+  // Fade-up on scroll
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+</script>
+</body>
+</html>
